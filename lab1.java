@@ -3,6 +3,16 @@ import java.io.*;
 import java.util.Scanner;
 
 class lab1 {
+    public static void generateInput() {
+        File output = new File("input.txt");
+        FileWriter filewriter = null;
+        filewriter = new FileWriter(output);
+        for (int i = 0; i < 450; i++){
+            if (i != 449) filewriter.write(i + "\n");
+            else filewriter.write(i + "\n");
+        }
+        filewriter.close();
+    }
 
     public static void mergeSort(int[] arr) {
         mergeSort(arr, arr.length);
@@ -58,6 +68,7 @@ class lab1 {
     }
 
     public static void main(String[] args) throws IOException {
+        generateInput();
         String filename = "input.txt";  
         
         try{
@@ -71,14 +82,15 @@ class lab1 {
                 memory[mem_p] = scan.nextInt();
                 mem_p++;
                 total_in++;
-                if (mem_p == 100) {
+                //if (mem_p == 100) {
                     mem_p = 0;
                     File output = new File("output.txt");
                     FileWriter filewriter = null;
                     filewriter = new FileWriter(output);
-                    filewriter.write(memory[0]);
+                    filewriter.write("1 jojoba\n");
+                    filewriter.write("2 jojoba\n");
                     filewriter.close();
-                }
+                //}
                 
             }
             scan.close();

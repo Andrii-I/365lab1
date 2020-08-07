@@ -11,10 +11,11 @@ class lab1 {
         Random rand = new Random();
         for (int i = 0; i < 450; i++) {
             if (i == 449) {
-                filewriter.write("99");
+                filewriter.write("449");
                 break;
             } 
-            filewriter.write(rand.nextInt(100) + "\n");
+            filewriter.write(i + "\n");
+            //filewriter.write(rand.nextInt(100) + "\n");
         }
         filewriter.close();
     }
@@ -75,7 +76,15 @@ class lab1 {
     public static void main(String[] args) throws IOException {
         generateInput();
 
-/*         String filename = "input.txt";  
+        String filename = "input.txt";  
+        String temp_output_names[] = {"temp0.txt",
+                                      "temp1.txt",
+                                      "temp2.txt",
+                                      "temp3.txt",
+                                      "temp4.txt",
+                                      "temp5.txt",
+                                      "temp6.txt",
+                                      "temp7.txt"};
         
         try{
             File file = new File(filename);
@@ -83,37 +92,39 @@ class lab1 {
 
             int memory[] = new int[100];
             int mem_p = 0;
-            int total_in = 0;
+            int total_int_in = 0;
+            int temp_f = 0;
             while (scan.hasNextLine()) {
                 memory[mem_p] = scan.nextInt();
                 mem_p++;
-                total_in++;
-                //if (mem_p == 100) {
+                total_int_in++;
+                if (mem_p == 100) {
                     mem_p = 0;
-                    File output = new File("output.txt");
+                    File output = new File(temp_output_names[temp_f]);
+                    temp_f++;
                     FileWriter filewriter = null;
                     filewriter = new FileWriter(output);
-                    filewriter.write("1 jojoba\n");
-                    filewriter.write("2 jojoba\n");
+                    mergeSort(memory);
+                    for (int j = 0; j < 100; j++) {
+                        filewriter.write(memory[j] + "\n");
+                    }
                     filewriter.close();
-                //}
-                
+                }
             }
+            File output = new File(temp_output_names[temp_f]);
+            temp_f++;
+            FileWriter filewriter = null;
+            filewriter = new FileWriter(output);
+            mergeSort(memory, mem_p);
+            for (int j = 0; j < mem_p; j++) {
+                filewriter.write(memory[j] + "\n");
+            }
+            filewriter.close();
             scan.close();
-            //System.out.println(Arrays.toString(memory));
-
-            int in_arr[] = new int[i];
-            for (int j = 0; j < i; j++) {
-                in_arr[j] = arr[j];
-            }
-
-            System.out.println("Input array: " + Arrays.toString(in_arr));
-            mergeSort(in_arr);
-            System.out.println("Sorted array: " + Arrays.toString(in_arr));
 
         } catch (FileNotFoundException e){
             System.err.println("File not found!");
-        } */
+        }
 
     }
 

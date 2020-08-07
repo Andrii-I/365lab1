@@ -129,13 +129,41 @@ class lab1 {
             int mem_per_file = 100/full_files;
             int mem_clusters = 100/mem_per_file;
             int mem_split[][] = new int[mem_clusters][2]; //0 would store start and 1 finish of each memory cluster
+            //System.out.println("full files:" + full_files);
+            //System.out.println("mem_per_file:" + mem_per_file);
+            //System.out.println("mem_clusters:" + mem_clusters);
+            
             //iterate from 0 to # of mem clusters 
                 //fill in mem_split with start and finish of each cluster based on mem_per_file
-            //create array to store pointers for each temp file?
+            mem_p = 0;
+            for (int i = 0; i < mem_clusters; i++) {
+                mem_split[i][0] = mem_p;
+                mem_p += mem_per_file;
+                mem_split[i][1] = mem_p;
+            }
+
+            //create array of readers[mem_clusters] to store place
+            
+            
+            //create a writer for final output
+            filename = "output.txt";
+            output = new File(filename);
+            filewriter = null;
+            filewriter = new FileWriter(output);
+            //filewriter.write("jojoba\n");
+            filewriter.close();
+
+/*             String filename = "input.txt";  
+            File file = new File(filename);
+            Scanner scan = new Scanner(file);
+
+            while (scan.hasNextLine()) {
+                memory[mem_p] = scan.nextInt();
+            }
+            scan.close(); */
+
             //fill in mem clusters from temp files
             //find smallest num in memory, write it into output file, replace it w next number from the same file, repeat the step until done
-            
-
         } catch (FileNotFoundException e){
             System.err.println("File not found!");
         }

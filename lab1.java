@@ -122,6 +122,20 @@ class lab1 {
             filewriter.close();
             scan.close();
 
+            //split memory into parts 
+            int full_files = total_int_in / 100;
+            if (total_int_in % 100 != 0) full_files++;
+            System.out.println(full_files);
+            int mem_per_file = 100/full_files;
+            int mem_clusters = 100/mem_per_file;
+            int mem_split[][] = new int[mem_clusters][2]; //0 would store start and 1 finish of each memory cluster
+            //iterate from 0 to # of mem clusters 
+                //fill in mem_split with start and finish of each cluster based on mem_per_file
+            //create array to store pointers for each temp file?
+            //fill in mem clusters from temp files
+            //find smallest num in memory, write it into output file, replace it w next number from the same file, repeat the step until done
+            
+
         } catch (FileNotFoundException e){
             System.err.println("File not found!");
         }

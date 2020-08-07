@@ -125,10 +125,10 @@ class lab1 {
             //split memory into parts 
             int full_files = total_int_in / 100;
             if (total_int_in % 100 != 0) full_files++;
-            System.out.println(full_files);
+            //System.out.println(full_files);
             int mem_per_file = 100/full_files;
             int mem_clusters = 100/mem_per_file;
-            int mem_split[][] = new int[mem_clusters][2]; //0 would store start and 1 finish of each memory cluster
+            int mem_split[][] = new int[mem_clusters][3]; //0 would store start and 1 finish of each memory cluster and 3 status (done or not)
             //System.out.println("full files:" + full_files);
             //System.out.println("mem_per_file:" + mem_per_file);
             //System.out.println("mem_clusters:" + mem_clusters);
@@ -140,11 +140,9 @@ class lab1 {
                 mem_split[i][0] = mem_p;
                 mem_p += mem_per_file;
                 mem_split[i][1] = mem_p;
+                mem_split[i][3] = 0;
             }
 
-            //create array of readers[mem_clusters] to store place
-            
-            
             //create a writer for final output
             filename = "output.txt";
             output = new File(filename);
@@ -152,6 +150,18 @@ class lab1 {
             filewriter = new FileWriter(output);
             //filewriter.write("jojoba\n");
             filewriter.close();
+
+            //create array of readers[mem_clusters] to store pointers to readers
+            Scanner[] temp_scan_p = new Scanner[mem_clusters];
+            for (int i = 0; i < mem_clusters; i++) {
+                filename = temp_output_names[i];
+                file = new File(filename);
+                temp_scan_p[i] = new Scanner(file); 
+                //scan.hasNextLine();
+                //scan.nextInt();
+                scan.close();
+            }
+
 
 /*             String filename = "input.txt";  
             File file = new File(filename);

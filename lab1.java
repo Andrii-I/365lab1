@@ -1,15 +1,20 @@
 import java.util.Arrays;
-import java.io.*; 
+import java.io.*;
 import java.util.Scanner;
+import java.util.Random;
 
 class lab1 {
-    public static void generateInput() {
+    public static void generateInput() throws IOException {
         File output = new File("input.txt");
         FileWriter filewriter = null;
         filewriter = new FileWriter(output);
-        for (int i = 0; i < 450; i++){
-            if (i != 449) filewriter.write(i + "\n");
-            else filewriter.write(i + "\n");
+        Random rand = new Random();
+        for (int i = 0; i < 450; i++) {
+            if (i == 449) {
+                filewriter.write("99");
+                break;
+            } 
+            filewriter.write(rand.nextInt(100) + "\n");
         }
         filewriter.close();
     }
@@ -69,7 +74,8 @@ class lab1 {
 
     public static void main(String[] args) throws IOException {
         generateInput();
-        String filename = "input.txt";  
+
+/*         String filename = "input.txt";  
         
         try{
             File file = new File(filename);
@@ -96,18 +102,18 @@ class lab1 {
             scan.close();
             //System.out.println(Arrays.toString(memory));
 
-/*             int in_arr[] = new int[i];
+            int in_arr[] = new int[i];
             for (int j = 0; j < i; j++) {
                 in_arr[j] = arr[j];
             }
 
             System.out.println("Input array: " + Arrays.toString(in_arr));
             mergeSort(in_arr);
-            System.out.println("Sorted array: " + Arrays.toString(in_arr)); */
+            System.out.println("Sorted array: " + Arrays.toString(in_arr));
 
         } catch (FileNotFoundException e){
             System.err.println("File not found!");
-        }
+        } */
 
     }
 

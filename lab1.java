@@ -11,11 +11,11 @@ class lab1 {
         Random rand = new Random();
         for (int i = 0; i < 450; i++) {
             if (i == 449) {
-                filewriter.write("449");
+                filewriter.write("99");
                 break;
             } 
-            filewriter.write(i + "\n");
-            //filewriter.write(rand.nextInt(100) + "\n");
+            //filewriter.write(i + "\n");
+            filewriter.write(rand.nextInt(100) + "\n");
         }
         filewriter.close();
     }

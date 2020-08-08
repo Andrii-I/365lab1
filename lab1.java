@@ -94,7 +94,7 @@ class lab1 {
             int mem_p = 0;
             int total_int_in = 0;
             int temp_f = 0;
-            while (scan.hasNextLine()) {
+            while (scan.hasNextInt()) {
                 memory[mem_p] = scan.nextInt();
                 mem_p++;
                 total_int_in++;
@@ -160,17 +160,16 @@ class lab1 {
                 filename = temp_output_names[i];
                 file = new File(filename);
                 temp_scan_p[i] = new Scanner(file); 
-                //scan.hasNextLine();
+                //scan.hasNextInt();
                 //scan.nextInt();
                 scan.close();
             }
 
             //fill in mem clusters from temp files using array of readers
-            int cluster_p = 0;
             mem_p = 0;
             for (int i = 0; i < mem_clusters; i++) {
                 for (int j = mem_split[i][0]; j < mem_split[i][1]; j++) {
-                    if (temp_scan_p[i].hasNextLine()) {
+                    if (temp_scan_p[i].hasNextInt()) {
                         memory[j] = temp_scan_p[i].nextInt();
                     }
                 }
@@ -178,13 +177,18 @@ class lab1 {
             //System.out.println(Arrays.toString(memory));
 
             //find smallest num in memory, write it into output file, replace it w next number from the same file, repeat the step until done
-            int smallest_num = memory[0];
-            int smallest_p = 0;
+            int smallest_num = Integer.MAX_VALUE;
+            int smallest_p = -1;
             for (int i = 0; i < 100; i++) {
-                if (smallest_num > memory[i]) {
+                if (smallest_num > memory[i] && memory[i] != -1) {
                     smallest_num = memory[i];
                     smallest_p = i;
                 } 
+            }
+            if (smallest_p == -1) {
+                System.out.println("Done; please see ouptut.txt for output");
+                filewriter.close();
+                return;
             }
 
             //System.out.println(Arrays.toString(memory));
@@ -194,6 +198,21 @@ class lab1 {
             filewriter.write(smallest_num + "\n");
 
             // identify from which temp file the smallest num came and pull another checking if it's not done
+            for (int i = 0; i < mem_clusters; i++) {
+                if (smallest_p >= mem_split[i][0] && smallest_p < mem_split[i][1]) {
+                    if (mem_split[i][2] == 1) {
+                        memory[smallest_p] = -1;
+                    }
+                    else if (temp_scan_p[i].hasNextInt()) {
+                        memory[smallest_p] = temp_scan_p[i].nextInt();
+                    }
+                    else if (!(temp_scan_p[i].hasNextInt())) {
+                        mem_split[i][2] = 1;
+                        memory[smallest_p] = -1;
+                    }
+                    
+                }
+            }
 
             filewriter.close();
 

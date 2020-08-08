@@ -140,7 +140,7 @@ class lab1 {
                 mem_split[i][0] = mem_p;
                 mem_p += mem_per_file;
                 mem_split[i][1] = mem_p;
-                mem_split[i][3] = 0;
+                mem_split[i][2] = 0;
             }
 
             //create a writer for final output
@@ -162,6 +162,22 @@ class lab1 {
                 scan.close();
             }
 
+            // set all elements of memory to -1 (= null)
+            for (int i = 0; i < 100; i++) {
+                memory[i] = -1;
+            }
+
+            //fill in mem clusters from temp files
+            int cluster_p = 0;
+            mem_p = 0;
+/*             for (int i = 0; i < mem_clusters; i++) {
+                for (int j = mem_split)
+                
+            } */
+
+            //find smallest num in memory, write it into output file, replace it w next number from the same file, repeat the step until done
+
+
 
 /*             String filename = "input.txt";  
             File file = new File(filename);
@@ -172,8 +188,6 @@ class lab1 {
             }
             scan.close(); */
 
-            //fill in mem clusters from temp files
-            //find smallest num in memory, write it into output file, replace it w next number from the same file, repeat the step until done
         } catch (FileNotFoundException e){
             System.err.println("File not found!");
         }

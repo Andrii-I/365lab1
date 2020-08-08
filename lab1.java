@@ -18,6 +18,7 @@ class lab1 {
             filewriter.write(rand.nextInt(100) + "\n");
         }
         filewriter.close();
+        System.out.println("450 random integers 0-99 generated in input.txt for sorting");
     }
 
     public static void mergeSort(int[] arr) {
@@ -121,6 +122,7 @@ class lab1 {
             }
             filewriter.close();
             scan.close();
+            System.out.println("input.txt is saved as separate sorted chunks in tempN.txt files");
 
             //split memory into parts 
             int full_files = total_int_in / 100;
@@ -175,47 +177,46 @@ class lab1 {
                 }
             }
             //System.out.println(Arrays.toString(memory));
-
+         
+            while (true) {
             //find smallest num in memory, write it into output file, replace it w next number from the same file, repeat the step until done
-            int smallest_num = Integer.MAX_VALUE;
-            int smallest_p = -1;
-            for (int i = 0; i < 100; i++) {
-                if (smallest_num > memory[i] && memory[i] != -1) {
-                    smallest_num = memory[i];
-                    smallest_p = i;
-                } 
-            }
-            if (smallest_p == -1) {
-                System.out.println("Done; please see ouptut.txt for output");
-                filewriter.close();
-                return;
-            }
-
-            //System.out.println(Arrays.toString(memory));
-            //System.out.println(smallest_num + ", pos " + smallest_p);
-
-            //put smallest num into output
-            filewriter.write(smallest_num + "\n");
-
-            // identify from which temp file the smallest num came and pull another checking if it's not done
-            for (int i = 0; i < mem_clusters; i++) {
-                if (smallest_p >= mem_split[i][0] && smallest_p < mem_split[i][1]) {
-                    if (mem_split[i][2] == 1) {
-                        memory[smallest_p] = -1;
+                int smallest_num = Integer.MAX_VALUE;
+                int smallest_p = -1;
+                for (int i = 0; i < 100; i++) {
+                    if (smallest_num > memory[i] && memory[i] != -1) {
+                        smallest_num = memory[i];
+                        smallest_p = i;
+                    } 
+                }
+                if (smallest_p == -1) {
+                    System.out.println("Sorting done; please see ouptut.txt for output");
+                    filewriter.close();
+                    return;
+                }
+    
+                //System.out.println(Arrays.toString(memory));
+                //System.out.println(smallest_num + ", pos " + smallest_p);
+    
+                //put smallest num into output
+                filewriter.write(smallest_num + "\n");
+    
+                // identify from which temp file the smallest num came and pull another checking if it's not done
+                for (int i = 0; i < mem_clusters; i++) {
+                    if (smallest_p >= mem_split[i][0] && smallest_p < mem_split[i][1]) {
+                        if (mem_split[i][2] == 1) {
+                            memory[smallest_p] = -1;
+                        }
+                        else if (temp_scan_p[i].hasNextInt()) {
+                            memory[smallest_p] = temp_scan_p[i].nextInt();
+                        }
+                        else if (!(temp_scan_p[i].hasNextInt())) {
+                            mem_split[i][2] = 1;
+                            memory[smallest_p] = -1;
+                        }
+                        
                     }
-                    else if (temp_scan_p[i].hasNextInt()) {
-                        memory[smallest_p] = temp_scan_p[i].nextInt();
-                    }
-                    else if (!(temp_scan_p[i].hasNextInt())) {
-                        mem_split[i][2] = 1;
-                        memory[smallest_p] = -1;
-                    }
-                    
                 }
             }
-
-            filewriter.close();
-
         } catch (FileNotFoundException e){
             System.err.println("File not found!");
         }

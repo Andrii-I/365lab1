@@ -148,9 +148,6 @@ class lab1 {
             output = new File(filename);
             filewriter = null;
             filewriter = new FileWriter(output);
-            //filewriter.write("jojoba\n");
-            filewriter.close();
-
             
             // set all elements of memory to -1 (= null)
             for (int i = 0; i < 100; i++) {
@@ -178,21 +175,27 @@ class lab1 {
                     }
                 }
             }
-
-            System.out.println(Arrays.toString(memory));
+            //System.out.println(Arrays.toString(memory));
 
             //find smallest num in memory, write it into output file, replace it w next number from the same file, repeat the step until done
-
-
-
-/*             String filename = "input.txt";  
-            File file = new File(filename);
-            Scanner scan = new Scanner(file);
-
-            while (scan.hasNextLine()) {
-                memory[mem_p] = scan.nextInt();
+            int smallest_num = memory[0];
+            int smallest_p = 0;
+            for (int i = 0; i < 100; i++) {
+                if (smallest_num > memory[i]) {
+                    smallest_num = memory[i];
+                    smallest_p = i;
+                } 
             }
-            scan.close(); */
+
+            //System.out.println(Arrays.toString(memory));
+            //System.out.println(smallest_num + ", pos " + smallest_p);
+
+            //put smallest num into output
+            filewriter.write(smallest_num + "\n");
+
+            // identify from which temp file the smallest num came and pull another checking if it's not done
+
+            filewriter.close();
 
         } catch (FileNotFoundException e){
             System.err.println("File not found!");

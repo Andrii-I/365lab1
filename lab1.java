@@ -151,6 +151,12 @@ class lab1 {
             //filewriter.write("jojoba\n");
             filewriter.close();
 
+            
+            // set all elements of memory to -1 (= null)
+            for (int i = 0; i < 100; i++) {
+                memory[i] = -1;
+            }
+
             //create array of readers[mem_clusters] to store pointers to readers
             Scanner[] temp_scan_p = new Scanner[mem_clusters];
             for (int i = 0; i < mem_clusters; i++) {
@@ -162,18 +168,18 @@ class lab1 {
                 scan.close();
             }
 
-            // set all elements of memory to -1 (= null)
-            for (int i = 0; i < 100; i++) {
-                memory[i] = -1;
-            }
-
-            //fill in mem clusters from temp files
+            //fill in mem clusters from temp files using array of readers
             int cluster_p = 0;
             mem_p = 0;
-/*             for (int i = 0; i < mem_clusters; i++) {
-                for (int j = mem_split)
-                
-            } */
+            for (int i = 0; i < mem_clusters; i++) {
+                for (int j = mem_split[i][0]; j < mem_split[i][1]; j++) {
+                    if (temp_scan_p[i].hasNextLine()) {
+                        memory[j] = temp_scan_p[i].nextInt();
+                    }
+                }
+            }
+
+            System.out.println(Arrays.toString(memory));
 
             //find smallest num in memory, write it into output file, replace it w next number from the same file, repeat the step until done
 
